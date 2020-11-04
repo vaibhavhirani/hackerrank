@@ -40,29 +40,20 @@ func getLargestPalindrome(num int64) {
 	var reverseOfProductInt int64
 	var largestPalindrome int64 = 101101
 	var k int64
-	var count int64
-	var realJ int64
-	var limit int64 = 500
-	var oldLimit, temp int64 = 0, 0
+	// var count int64
 
 	for i = 121; i < 1000; i++ {
-		if int64(math.Abs(float64(100000/i)))-i < 0 {
-			realJ = i
-		} else {
-			realJ = int64(math.Abs(float64(100000 / i)))
+		if num/i > 1000 {
+			continue
 		}
-		if (i+realJ)%2 != 0 {
-			realJ = realJ - 1
-		}
-		fmt.Println(realJ)
-		for j = realJ; j < 1000; j = j + 2 {
-			count = count + 1
+		for j = int64(math.Abs(float64(largestPalindrome / i))); j < 1000; j = j + 1 {
+			// count = count + 1
 			if i*j >= num {
 				break
 			}
 			product = i * j
 			prevPalindrome = product
-			// fmt.Printf("Product of  %v * %v is %v \n", i, j, product)
+			// fmt.Printf("PRODUCT of  %v * %v is %v \n", i, j, product)
 			// String approach
 			reverseOfProduct = ""
 			for k = 5; k >= 0; k-- {
@@ -75,13 +66,14 @@ func getLargestPalindrome(num int64) {
 			// temp = largestPalindrome //last palindrome
 			reverseOfProductInt, _ = strconv.ParseInt(reverseOfProduct, 10, 64)
 			if product == reverseOfProductInt {
-				// fmt.Printf("Product of  %v * %v Reverse of %v is %v \n", i, j, product, reverseOfProductInt)
+				// fmt.Println("----------")
+				// fmt.Printf("REVERSE Product of  %v * %v Reverse of %v is %v \n", i, j, product, reverseOfProductInt)
+				// fmt.Println("----------")
 				if largestPalindrome < product {
 					largestPalindrome = product
 				}
 			}
 		}
-		// fmt.Println()
 	}
 	fmt.Println(largestPalindrome)
 	// fmt.Printf("Count %v \n", count)
