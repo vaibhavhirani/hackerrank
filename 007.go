@@ -45,27 +45,36 @@ func getPrimeNumberAtArr(position int64) {
 	} else if (position == 2){
 		fmt.Println(3)
 	} else {
+		optimisedSlice := primeArray
 		for count <= position-2 {
 			primeFlag = false
-			for i = 0; i < len(primeArray); i++ {
-				if (prime%primeArray[i] == 0) {
+			if (len(primeArray) >= 2) {
+				divisionPoint := 0
+				for i = 0; i < len(primeArray); i++ {
+					if (primeArray[i] > prime/2) {
+						divisionPoint = i
+						break
+					}
+				}
+				optimisedSlice = primeArray[:divisionPoint]
+				// fmt.Println("first half", optimisedSlice)
+			}
+			for i = 0; i < len(optimisedSlice); i++ {
+				if (prime%optimisedSlice[i] == 0) {
 					//Number is divisible, therefore not a prime number
 					primeFlag = false
 					prime = prime + 2
 					break
 				} else {
+					// fmt.Printf("%d / %d \n",prime, primeArray)
 					primeFlag = true
-				}	
+				}
 			}
 			if (primeFlag == true) {
 				primeArray = append(primeArray, prime)
 				prime = prime + 2
 				count = count + 1
-				//fmt.Println(primeArray)
 			}
-			// increase the prime number
-			//increase the count by 1 
-			
 		}
 	
 		fmt.Println(primeArray[len(primeArray)-1])
