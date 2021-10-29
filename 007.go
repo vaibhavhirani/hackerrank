@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	//"math"
+	"time"
 	"os"
 	"strconv"
 )
@@ -45,19 +46,19 @@ func getPrimeNumberAtArr(position int64) {
 	} else if (position == 2){
 		fmt.Println(3)
 	} else {
+		start := time.Now()
 		optimisedSlice := primeArray
 		for count <= position-2 {
 			primeFlag = false
 			if (len(primeArray) >= 2) {
-				divisionPoint := 0
-				for i = 0; i < len(primeArray); i++ {
-					if (primeArray[i] > prime/2) {
-						divisionPoint = i
-						break
-					}
+				middleElement := primeArray[len(primeArray)/2]
+				count := 0
+				for (middleElement < prime/2) {
+					count = count + 1
+					middleElement = primeArray[len(primeArray)/2 + count]
+					// fmt.Println("Printing middle", middleElement)
 				}
-				optimisedSlice = primeArray[:divisionPoint]
-				// fmt.Println("first half", optimisedSlice)
+				optimisedSlice = primeArray[:len(primeArray)/2 + count]
 			}
 			for i = 0; i < len(optimisedSlice); i++ {
 				if (prime%optimisedSlice[i] == 0) {
@@ -76,8 +77,9 @@ func getPrimeNumberAtArr(position int64) {
 				count = count + 1
 			}
 		}
-	
-		fmt.Println(primeArray[len(primeArray)-1])
+		elapsed := time.Since(start)
+		fmt.Print(primeArray[len(primeArray)-1])
+		fmt.Printf("  Finding took %s \n", elapsed)
 	}
 }
 /*
