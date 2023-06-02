@@ -3,10 +3,10 @@ package main
 import (
 	"bufio"
 	"fmt"
-	//"math"
-	"time"
 	"os"
 	"strconv"
+	//"math"
+	"time"
 )
 
 func main() {
@@ -36,7 +36,7 @@ By listing the first six prime numbers: 2,3,5,7,11 and 13, we can see that the 1
 What is the  nth prime number
 */
 func getPrimeNumberAtArr(position int64) {
-	var primeArray = []int64{2}
+	var primeArray = []int64{}
 	var prime int64= 3
 	var count int64= 0
 	var i int= 0
@@ -49,14 +49,14 @@ func getPrimeNumberAtArr(position int64) {
 		start := time.Now()
 		optimisedSlice := primeArray
 		for count <= position-2 {
-			primeFlag = false
+			primeFlag = true
 			if (len(primeArray) >= 2) {
 				middleElement := primeArray[len(primeArray)/2]
 				count := 0
 				for (middleElement < prime/2) {
 					count = count + 1
 					middleElement = primeArray[len(primeArray)/2 + count]
-					// fmt.Println("Printing middle", middleElement)
+					//fmt.Println("Printing primeArray till middle", primeArray[:len(primeArray)/2 + count])
 				}
 				optimisedSlice = primeArray[:len(primeArray)/2 + count]
 			}
@@ -66,10 +66,8 @@ func getPrimeNumberAtArr(position int64) {
 					primeFlag = false
 					prime = prime + 2
 					break
-				} else {
-					// fmt.Printf("%d / %d \n",prime, primeArray)
-					primeFlag = true
 				}
+				primeFlag = true		
 			}
 			if (primeFlag == true) {
 				primeArray = append(primeArray, prime)
@@ -78,7 +76,7 @@ func getPrimeNumberAtArr(position int64) {
 			}
 		}
 		elapsed := time.Since(start)
-		fmt.Print(primeArray[len(primeArray)-1])
+		fmt.Println(primeArray[len(primeArray)-1])
 		fmt.Printf("  Finding took %s \n", elapsed)
 	}
 }
